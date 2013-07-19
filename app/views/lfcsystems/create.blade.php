@@ -8,9 +8,9 @@
 	</div>
 
 	<div class="control-group">
-		{{ Form::label('admin', 'Administrator') }}
+		{{ Form::label('user', 'Administrator') }}
 		<div class="control">
-			{{ Form::text('admin') }}
+			{{ Form::select('user', $admins) }}
 		</div>
 	</div>
 
@@ -20,6 +20,7 @@
 			{{ Form::textarea('description') }}
 		</div>
 	</div>
+
 
 	 <div class="form-actions">
         {{ Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')) }}

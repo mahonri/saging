@@ -16,7 +16,7 @@
 		@foreach ($lfcsystems as $lfcsystem)
 			<tr>
 				<td><a href="{{ URL::route('lfcsystems.show', $lfcsystem->id) }}">{{ $lfcsystem->name }}</a></td>
-				<td>{{ $lfcsystem->admin }}</td>
+				<td>{{ $lfcsystem->user->first_name }}</td>
 				<td>{{ $lfcsystem->description }}</td>
 			</tr>
 		@endforeach

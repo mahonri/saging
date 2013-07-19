@@ -10,21 +10,29 @@
 | and give it the Closure to execute when that URI is requested.
 |
 */
+Route::get('auth/logout', array('as' => 'auths.logout', 'uses' => 'AuthenticationController@getLogout'));
+Route::get('auth/login', array('as' => 'auths.login', 'uses' => 'AuthenticationController@getLogin'));
+Route::post('auth/login', array('as' => 'auths.login.post', 'uses' => 'AuthenticationController@postLogin'));
 
-Route::get('/', function()
+Route::group(array('before' => 'auth.admin'), function() 
 {
-	return View::make('hello');
+	Route::get('/', function()
+	{
+		return View::make('hello');
+	});
+
+
+	Route::resource('lfcsystems', 'LfcsystemController');
+
+	Route::resource('accounts', 'AccountController');
+
+	Route::post('accounts/jsonrequest/{lfcsystem_id}', array(
+		'as' => 'accounts.jsonrequest', 
+		'uses' => 'AccountController@jsonrequest'));
+
+	Route::post('lfcsystems/jsonrequest', array(
+		'as' => 'lfcsystems.jsonrequest', 
+		'uses' => 'LfcsystemController@jsonrequest'));
+		
 });
 
-Route::resource('lfcsystems', 'LfcsystemController');
-
-Route::resource('accounts', 'AccountController');
-
-Route::post('accounts/jsonrequest/{lfcsystem_id}', array(
-	'as' => 'accounts.jsonrequest', 
-	'uses' => 'AccountController@jsonrequest'));
-
-Route::post('lfcsystems/jsonrequest', array(
-	'as' => 'lfcsystems.jsonrequest', 
-	'uses' => 'LfcsystemController@jsonrequest'));
-	

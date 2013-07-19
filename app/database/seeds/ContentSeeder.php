@@ -11,19 +11,19 @@ class ContentSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		DB::table('lfcsystems')->delete();
 		DB::table('accounts')->delete();
+		DB::table('lfcsystems')->delete();
 
 		Lfcsystem::create(array(
 			'name' => 'Portal',
-			'admin' => 'james bond',
 			'description' => 'manage the portal system',
+			'user_id' => 1,
 		));
 
 		Lfcsystem::create(array(
 			'name' => 'System X',
-			'admin' => 'james bond',
 			'description' => 'manage the x system',
+			'user_id' => 2,
 		));
 
 		Account::create(array(

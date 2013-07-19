@@ -7,5 +7,9 @@ class Lfcsystem extends Eloquent {
 	public function accounts() {
 		return $this->hasMany('Account');
 	}
+
+	public function user() {
+		return $this->belongsTo('User');
+	}
 	
 }

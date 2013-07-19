@@ -4,7 +4,7 @@ class LfcsystemController extends BaseController {
 
 	public function index() 
 	{
-		return View::make('lfcsystems.index')->with('lfcsystems',  Lfcsystem::paginate(15));
+		return View::make('lfcsystems.index')->with('lfcsystems',  Lfcsystem::where('user_id', Sentry::getUser()->id)->paginate(15));
 	}
 
 	public function show($id) 
@@ -18,15 +18,19 @@ class LfcsystemController extends BaseController {
 
 	public function create() 
 	{
-		return View::make('lfcsystems.create');
+		//$adminlist = Sentry::getUserProvider()->findAll();
+		$adminlist = User::lists('first_name', 'id');
+		return View::make('lfcsystems.create')->with('admins', $adminlist);
 	}
 
 	public function store()
 	{
+		//$admin = DB::table('users')->find(Input::get('user'));
+		$admin = User::find(Input::get('user'));
 		$lfcsystem = new Lfcsystem;
 		$lfcsystem->name = Input::get('name');
-		$lfcsystem->admin = Input::get('admin');
 		$lfcsystem->description = Input::get('description');
+		$lfcsystem->user()->associate($admin);
 		$lfcsystem->save();
 		return Redirect::route('lfcsystems.index');
 	}
