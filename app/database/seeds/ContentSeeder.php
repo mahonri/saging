@@ -40,6 +40,19 @@ class ContentSeeder extends Seeder {
 			'email' => 'aloha@yahoo.com',
 		));
 
+		Employee::create(array(
+			'emplid' => '00052',
+			'fname' => 'lazy',
+			'mname' => 'bone',
+			'lname' => 'me',
+		));
+
+		Employee::create(array(
+			'emplid' => '01102',
+			'fname' => 'buzy',
+			'mname' => 'bug',
+			'lname' => 'me',
+		));
 
 
 	}

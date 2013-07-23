@@ -5,6 +5,28 @@
 <!--//'route' => array('lfcsystems.destroy', $lfcsystem->id), 
 href="{{ URL::route('accounts.destroy', $account->id) }}"-->
 
+
+{{ Form::model($account, array('method' => 'put', 'route' => array('accounts.changestatus', $account->id))) }}
+	<button type="submit" class="btn btn-danger btn-mini">
+	@if( count($account->accountstates) > 0 && $account->accountstates[0]->status) 
+		Disable
+	@else
+		Enable
+	@endif
+	</button>
+{{ Form::close(); }}
+<hr>
+
+	@foreach($account->accountstates as $state)
+	
+
+		{{ $state->status}} {{ $state->created_at }} || {{ $state->ended_at }}<br />
+
+	@endforeach
+
+
 {{ Form::open(array('route' => array('accounts.destroy', $account->id), 'method' => 'delete')) }}
-    <button type="submit" class="btn btn-danger btn-mini">Delete</butfon>
+    <button type="submit" class="btn btn-danger btn-mini">Delete</button>
 {{ Form::close() }}
+
+

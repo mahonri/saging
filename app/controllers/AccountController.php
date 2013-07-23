@@ -49,8 +49,12 @@ class AccountController extends BaseController {
 		$account->username = Input::get('username');
 		$account->email = Input::get('email');
 		$lfcsystem->accounts()->save($account);
+
+		$accountstate = new Accountstate;
+		$accountstate->status = true;
+		$account->accountstates()->save($accountstate);
+		
 		return Redirect::route('lfcsystems.show', $lfcsystem_id);
-		//return Redirect::route('accounts.index')->with('accounts', Account::all());
 	}
 
 	public function edit($id)
@@ -74,6 +78,29 @@ class AccountController extends BaseController {
 		$lfcsystem_id = $account->lfcsystem_id;
 		$account->delete();
 		return Redirect::route('lfcsystems.show', $lfcsystem_id);
+	}
+
+	public function changestatus($id)
+	{
+		$account = Account::find($id);
+		if(count($account->accountstates) < 1) {
+			$status = false;
+		} else {
+			$status = $account->accountstates->first()->status;
+			$firstaccoutstate = $account->accountstates->first();
+			$firstaccoutstate->ended_at = date("Y-m-d H:i:s"); 
+			$firstaccoutstate->save();
+		}
+		
+		$accountstate = new Accountstate;
+		$accountstate->account()->associate($account);
+		if ($status) {
+			$accountstate->status = false;
+		} else {
+			$accountstate->status = true;
+		}
+		$accountstate->save();
+		return Redirect::route('accounts.show', $id);
 	}
 
 

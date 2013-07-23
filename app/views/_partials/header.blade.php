@@ -5,6 +5,8 @@
 <head>
 
     <link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/css/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ URL::asset('assets/js/jquery-ui-1.10.3/themes/base/jquery.ui.theme.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/flexigrid.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/style.css') }}" rel="stylesheet">
     <link href="{{ URL::asset('assets/css/forms.css') }}" rel="stylesheet">
@@ -13,6 +15,7 @@
 
    
     <script src="{{ URL::asset('assets/js/jquery-1.8.3.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/js/jquery-ui-1.10.3/ui/jquery-ui.js') }}"></script>
     <script src="{{ URL::asset('assets/js/flexigrid.js') }}"></script>
     <script src="{{ URL::asset('assets/js/hoverIntent.js') }}"></script>
     <script src="{{ URL::asset('assets/js/superfish.js') }}"></script>
@@ -27,6 +30,7 @@
         <!--header-->
 		<div id="top">
 			<div class="right" style="color: white;">
+                {{ Sentry::getUser()->email }}
 				[<span class="top-link"> <a href="https://lfcsvr.lapanday.local:8443/cas/logout">Log Off</a> </span> ] 
 				<span class="option">Helpdesk</span>
 			</div>    

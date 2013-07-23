@@ -26,13 +26,27 @@ Route::group(array('before' => 'auth.admin'), function()
 
 	Route::resource('accounts', 'AccountController');
 
+	//Route::resource('employees', 'EmployeeController');
+
+	Route::get('employees/jsonlist', array(
+		'as' => 'employees.jsonlist',
+		'uses' => 'EmployeeController@jsonlist',
+	));
+
 	Route::post('accounts/jsonrequest/{lfcsystem_id}', array(
 		'as' => 'accounts.jsonrequest', 
-		'uses' => 'AccountController@jsonrequest'));
+		'uses' => 'AccountController@jsonrequest'
+	));
+
+	Route::put('accounts/changestatus/{id}', array(
+		'as' => 'accounts.changestatus', 
+		'uses' => 'AccountController@changestatus'	
+	));
 
 	Route::post('lfcsystems/jsonrequest', array(
 		'as' => 'lfcsystems.jsonrequest', 
-		'uses' => 'LfcsystemController@jsonrequest'));
+		'uses' => 'LfcsystemController@jsonrequest'
+	));
 		
 });
 
