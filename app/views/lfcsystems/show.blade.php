@@ -50,6 +50,15 @@
 
 {{ Form::close() }}
 
+<a href="{{ URL::route('roles.systemrole', $lfcsystem->id)}}">Create Role</a>
+	
+	<hr>
+
+	@foreach($roles as $role)
+		{{ $role->name }}
+		{{ $role->description }} <br />
+	@endforeach
+
 	<table>
 		<tr>
 			<th>Emplid</th>
@@ -68,6 +77,8 @@
 	</table>
 
 <?php echo $accounts->links(); ?>
+
+
 
         {{ Form::open(array('route' => array('lfcsystems.destroy', $lfcsystem->id), 'method' => 'delete')) }}
 		    <button type="submit" class="btn btn-danger btn-mini">Delete</butfon>

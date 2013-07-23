@@ -28,6 +28,8 @@ Route::group(array('before' => 'auth.admin'), function()
 
 	//Route::resource('employees', 'EmployeeController');
 
+	Route::resource('roles', 'RoleController');
+
 	Route::get('employees/jsonlist', array(
 		'as' => 'employees.jsonlist',
 		'uses' => 'EmployeeController@jsonlist',
@@ -46,6 +48,11 @@ Route::group(array('before' => 'auth.admin'), function()
 	Route::post('lfcsystems/jsonrequest', array(
 		'as' => 'lfcsystems.jsonrequest', 
 		'uses' => 'LfcsystemController@jsonrequest'
+	));
+
+	Route::get('roles/systemrole/{id}', array(
+		'as' => 'roles.systemrole', 
+		'uses' => 'RoleController@systemrole'
 	));
 		
 });

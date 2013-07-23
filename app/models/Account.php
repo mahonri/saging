@@ -13,4 +13,9 @@ class Account extends Eloquent {
 	{
 		return $this->hasMany('Accountstate')->orderBy('created_at', 'DESC');
 	}
+
+	public function roles()
+	{
+		return $this->belongsToMany('Role');
+	}
 }
