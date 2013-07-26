@@ -11,6 +11,10 @@
 	</div>
 </div>
 
+@foreach($permissions as $permission)
+{{ Form::checkbox('permissions[]', $permission->computerreadablename) }} <label>{{ $permission->humanreadablename }}</label><br />
+@endforeach
+
 <div class="form-actions">
 	{{ Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')) }}
 </div>

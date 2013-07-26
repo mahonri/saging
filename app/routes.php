@@ -30,6 +30,8 @@ Route::group(array('before' => 'auth.admin'), function()
 
 	Route::resource('groups', 'GroupController');
 
+	Route::resource('permissions', 'PermissionController');
+
 	Route::get('employeesrest/jsonlist', array(
 		'as' => 'employees.jsonlist',
 		'uses' => 'EmployeeController@jsonlist',

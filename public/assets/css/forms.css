@@ -141,7 +141,7 @@ table.data th {
 table.data tbody td {
     padding: 10px;
 }
-table.data tr.even td {
+table.data tr:nth-child(even) td {
     background: #f6ffea;
 }
 table.data.stripe tr:nth-child(odd) td {

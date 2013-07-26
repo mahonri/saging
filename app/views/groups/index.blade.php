@@ -4,7 +4,11 @@
 
 @foreach($groups as $group)
 
-{{ $group->name }} <br />
+{{ $group->name }} 
+	@foreach($group->permissions as $key => $value)
+		{{ $key }}
+	@endforeach
+<br />
 
 @endforeach
 
