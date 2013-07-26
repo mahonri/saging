@@ -16,21 +16,21 @@ Route::post('auth/login', array('as' => 'auths.login.post', 'uses' => 'Authentic
 
 Route::group(array('before' => 'auth.admin'), function() 
 {
-	Route::get('/', function()
-	{
-		return View::make('hello');
-	});
-
+	Route::get('/', 'HomeController@showWelcome');
 
 	Route::resource('lfcsystems', 'LfcsystemController');
 
 	Route::resource('accounts', 'AccountController');
 
-	//Route::resource('employees', 'EmployeeController');
+	Route::resource('employees', 'EmployeeController');
 
 	Route::resource('roles', 'RoleController');
 
-	Route::get('employees/jsonlist', array(
+	Route::resource('users', 'UserController');
+
+	Route::resource('groups', 'GroupController');
+
+	Route::get('employeesrest/jsonlist', array(
 		'as' => 'employees.jsonlist',
 		'uses' => 'EmployeeController@jsonlist',
 	));

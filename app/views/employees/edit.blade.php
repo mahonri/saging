@@ -2,19 +2,19 @@
 
 @section('content')
 
-{{ Form::model($account, array('method' => 'put', 'route' => array('accounts.update', $account->id))) }}
+{{ Form::model($employee, array('method' => 'put', 'route' => array('employees.update', $employee->id))) }}
 
 <div class="control-group">
-    {{ Form::label('emplid', 'Emplid') }}
+    {{ Form::label('adusername', 'AD Username') }}
     <div class="controls">
-        {{ Form::text('emplid') }}
+        {{ Form::text('adusername') }}
     </div>
 </div>
 
 <div class="control-group">
-    {{ Form::label('username', 'Username') }}
+    {{ Form::label('fullname', 'Fullname') }}
     <div class="controls">
-        {{ Form::text('username') }}
+        {{ Form::text('fullname') }}
     </div>
 </div>
 
@@ -27,9 +27,8 @@
 
 <div class="form-actions">
     {{ Form::submit('Update', array('class' => 'btn btn-success btn-save btn-large')) }}
-    <a href="{{ URL::route('accounts.index') }}" class="btn btn-large">Cancel</a>
 </div>
 
 {{ Form::close() }}
- 
-@stop
+
+@stop 

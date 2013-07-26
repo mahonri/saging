@@ -1,3 +1,7 @@
+@extends('_layouts.default')
+
+@section('content')
+
 {{ Form::open(array('route' => 'accounts.store')) }}
 
 	<div class="control-group">

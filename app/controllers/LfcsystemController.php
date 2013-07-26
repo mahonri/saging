@@ -10,6 +10,7 @@ class LfcsystemController extends BaseController {
 	public function show($id) 
 	{
 		$lfcsystem = Lfcsystem::find($id);
+		//$accounts = $lfcsystem->accounts()->paginate(10);
 		$accounts = $lfcsystem->accounts()->paginate(10);
 		return View::make('lfcsystems.show')
 			->with('lfcsystem', $lfcsystem)

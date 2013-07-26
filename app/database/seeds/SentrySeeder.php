@@ -4,6 +4,10 @@ class SentrySeeder extends Seeder {
 
 	public function run()
 	{
+		DB::table('employees')->delete();
+		DB::table('lfcsystems')->delete();;
+		DB::table('accounts')->delete();
+		
 		DB::table('users')->delete();
 		DB::table('groups')->delete();
 		DB::table('users_groups')->delete();

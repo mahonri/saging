@@ -6,7 +6,12 @@ class Account extends Eloquent {
 
 	public function lfcsystem() 
 	{
-		return $this->belongTo('Lfcsystem');
+		return $this->belongsTo('Lfcsystem');
+	}
+
+	public function employee()
+	{
+		return $this->belongsTo('Employee');
 	}
 
 	public function accountstates()

@@ -30,8 +30,10 @@
         <!--header-->
 		<div id="top">
 			<div class="right" style="color: white;">
-                {{ Sentry::getUser()->email }}
-				[<span class="top-link"> <a href="https://lfcsvr.lapanday.local:8443/cas/logout">Log Off</a> </span> ] 
+                @if (Sentry::check())
+                    {{ Sentry::getUser()->email }}
+                    [<span class="top-link"> <a href="{{ URL::route('auths.logout') }}">Log Off</a> </span> ] 
+                @endif 
 				<span class="option">Helpdesk</span>
 			</div>    
         </div>

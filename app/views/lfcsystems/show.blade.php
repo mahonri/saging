@@ -9,118 +9,131 @@
 
 <div>
 	<label>Employee Name</label>
-	<input input="text" id="employeename"/>
+	<input input="text" id="searchfullname"/>
 </div>
 
 {{ Form::open(array('route' => 'accounts.store')) }}
-		{{ Form::hidden('lfcsystem_id', $lfcsystem->id)}}
-	<div class="control-group">
-		{{ Form::label('emplid', 'Emplid') }}
-		<div class="control">
-			{{ Form::text('emplid', '', array('readonly' => 'readonly')) }}
-		</div>
-	</div>
 
-	<div class="control-group">
-		{{ Form::label('lname', 'Lastname') }}
-		<div class="control">
-			{{ Form::text('lname', '', array('readonly' => 'readonly')) }}
-		</div>
-	</div>
 
-	<div class="control-group">
-		{{ Form::label('fname', 'Firstname') }}
-		<div class="control">
-			{{ Form::text('fname', '', array('readonly' => 'readonly')) }}
-		</div>
-	</div>
+{{ Form::hidden('lfcsystem_id', $lfcsystem->id)}}
+{{ Form::hidden('employee_id', '' , array('id' => 'employee_id')) }}
 
-	<div class="control-group">
-		{{ Form::label('mname', 'Middlename') }}
-		<div class="control">
-			{{ Form::text('mname', '', array('readonly' => 'readonly')) }}
-		</div>
+<div class="control-group">
+	{{ Form::label('username', 'Username') }}
+	<div class="control">
+		{{ Form::text('username') }}
 	</div>
+</div>
 
-	 <div class="form-actions">
-        {{ Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')) }}
-        <a href="{{ URL::route('accounts.index') }}" class="btn btn-large">Cancel</a>
-    </div>
+<div class="control-group">
+	{{ Form::label('adusername', 'AD username') }}
+	<div class="control">
+		{{ Form::text('adusername', '', array('readonly' => 'readonly')) }}
+	</div>
+</div>
+
+<div class="control-group">
+	{{ Form::label('fullname', 'Fullname') }}
+	<div class="control">
+		{{ Form::text('fullname', '', array('readonly' => 'readonly')) }}
+	</div>
+</div>
+
+<div class="control-group">
+	{{ Form::label('email', 'Email') }}
+	<div class="control">
+		{{ Form::text('email', '', array('readonly' => 'readonly')) }}
+	</div>
+</div>
+
+@foreach($lfcsystem->roles as $role)
+{{ Form::checkbox('roles[]', $role->id) }} <label>{{ $role->name }}</label><br />
+@endforeach
+
+
+<div class="form-actions">
+	{{ Form::submit('Save', array('class' => 'btn btn-success btn-save btn-large')) }}
+	<a href="{{ URL::route('accounts.index') }}" class="btn btn-large">Cancel</a>
+</div>
 
 
 {{ Form::close() }}
 
 <a href="{{ URL::route('roles.systemrole', $lfcsystem->id)}}">Create Role</a>
-	
-	<hr>
 
-	@foreach($roles as $role)
-		{{ $role->name }}
-		{{ $role->description }} <br />
+<hr>
+
+
+<hr>
+
+<table>
+	<tr>
+		<th>Username</th>
+		<th>ADUsername</th>
+		<th>Fullname</th>
+		<th>Email</th>
+		<th>Permissions</th>
+	</tr>
+
+	@foreach ($accounts as $account)
+	<tr>
+		<td><a href="{{ Url::route('accounts.show', $account->id) }}">{{ $account->username }}</a></td>
+		<td>{{ $account->employee->adusername }}</td>
+		<td>{{ $account->employee->fullname }}</td>
+		<td>{{ $account->employee->email }}</td>
+
+	</tr>
 	@endforeach
 
-	<table>
-		<tr>
-			<th>Emplid</th>
-			<th>Username</th>
-			<th>Email</th>
-		</tr>
-
-		@foreach ($accounts as $account)
-		<tr>
-			<td><a href="{{ Url::route('accounts.show', $account->id) }}">{{ $account->emplid }}</a></td>
-			<td>{{ $account->username }}</td>
-			<td>{{ $account->email }}</td>
-		</tr>
-		@endforeach
-
-	</table>
+</table>
 
 <?php echo $accounts->links(); ?>
 
 
 
-        {{ Form::open(array('route' => array('lfcsystems.destroy', $lfcsystem->id), 'method' => 'delete')) }}
-		    <button type="submit" class="btn btn-danger btn-mini">Delete</butfon>
-		{{ Form::close() }}
+{{ Form::open(array('route' => array('lfcsystems.destroy', $lfcsystem->id), 'method' => 'delete')) }}
+<button type="submit" class="btn btn-danger btn-mini">Delete</butfon>
+	{{ Form::close() }}
 
 
-<script type="text/javascript">
-$(function() {
+	<script type="text/javascript">
+	$(function() {
 
-	$( "#employeename" ).autocomplete({
-		source: function( request, response ) {
-			$.ajax({
-				url: "/employees/jsonlist",
-				data: {
-					lname: request.term
-				},
-				success: function( data ) {
-					response( $.map( data, function( item ) {
-						return {
-							mdata: item,
-							label: item.lname + ", " + item.fname + " " + item.mname,
-							value: item.lname
-						}
-					})); 
-				}
-			});
-		},
-		minLength: 2,
-		select: function( event, ui ) {
-			$('#emplid').val(ui.item.mdata.emplid);
-			$('#lname').val(ui.item.mdata.lname);
-			$('#fname').val(ui.item.mdata.fname);
-			$('#mname').val(ui.item.mdata.mname);
-		},
-		open: function() {
-			$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-		},
-		close: function() {
-			$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-		}
+
+		$( "#searchfullname" ).autocomplete({
+			source: function( request, response ) {
+				$.ajax({
+					url: "/employeesrest/jsonlist",
+					data: {
+						fullname: request.term
+					},
+					success: function( data ) {
+						response( $.map( data, function( item ) {
+							return {
+								mdata: item,
+								label: item.fullname,
+								value: item.fullname
+							}
+						})); 
+					}
+				});
+			},
+			minLength: 2,
+			select: function( event, ui ) {
+				$('#employee_id').val(ui.item.mdata.id);
+				$('#adusername').val(ui.item.mdata.adusername);
+				$('#fullname').val(ui.item.mdata.fullname);
+				$('#email').val(ui.item.mdata.email);
+			},
+			open: function() {
+				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+			},
+			close: function() {
+				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+			}
+		});
+
 	});
+	</script>
 
-});
-</script>
 @stop

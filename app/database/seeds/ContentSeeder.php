@@ -11,8 +11,21 @@ class ContentSeeder extends Seeder {
 	{
 		Eloquent::unguard();
 
-		DB::table('accounts')->delete();
-		DB::table('lfcsystems')->delete();
+
+		
+		Employee::create(array(
+			'username' => '00052',
+			'fullname' => 'lazy',
+			'adusername' => 'bone',
+			'email' => 'me',
+		));
+
+		Employee::create(array(
+			'username' => '01102',
+			'fullname' => 'buzy',
+			'adusername' => 'bug',
+			'email' => 'me',
+		));
 
 		Lfcsystem::create(array(
 			'name' => 'Portal',
@@ -28,31 +41,17 @@ class ContentSeeder extends Seeder {
 
 		Account::create(array(
 			'lfcsystem_id' => 1,
-			'emplid' => '99098',
+			'employee_id' => '1',
 			'username' => 'tkqa',
-			'email' => 'aloha@yahoo.com',
 		));
 
 		Account::create(array(
 			'lfcsystem_id' => 2,
-			'emplid' => '0988',
+			'employee_id' => '1',
 			'username' => 'tkqa',
-			'email' => 'aloha@yahoo.com',
 		));
 
-		Employee::create(array(
-			'emplid' => '00052',
-			'fname' => 'lazy',
-			'mname' => 'bone',
-			'lname' => 'me',
-		));
-
-		Employee::create(array(
-			'emplid' => '01102',
-			'fname' => 'buzy',
-			'mname' => 'bug',
-			'lname' => 'me',
-		));
+		
 
 
 	}

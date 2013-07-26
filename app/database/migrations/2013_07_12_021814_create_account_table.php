@@ -15,9 +15,11 @@ class CreateAccountTable extends Migration {
 		Schema::create('accounts', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('emplid');
 			$table->string('username');
-			$table->string('email');
+			$table->unsignedInteger('employee_id');
+			$table->foreign('employee_id')
+					->references('id')
+					->on('employees');
 			$table->unsignedInteger('lfcsystem_id');
 			$table->foreign('lfcsystem_id')
 					->references('id')

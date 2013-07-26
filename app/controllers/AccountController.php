@@ -44,11 +44,15 @@ class AccountController extends BaseController {
 	{
 		$lfcsystem_id = Input::get('lfcsystem_id');
 		$lfcsystem = Lfcsystem::find($lfcsystem_id);
+		$employee_id = Input::get('employee_id');
+		$employee = Employee::find($employee_id);
+
 		$account = new Account;
-		$account->emplid = Input::get('emplid');
 		$account->username = Input::get('username');
-		$account->email = Input::get('email');
-		$lfcsystem->accounts()->save($account);
+		$account->lfcsystem()->associate($lfcsystem);
+		$account->employee()->associate($employee);
+		$account->save();
+		if (count(Input::get('roles'))) $account->roles()->sync(Input::get('roles'));
 
 		$accountstate = new Accountstate;
 		$accountstate->status = true;
